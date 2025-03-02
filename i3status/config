@@ -1,0 +1,48 @@
+general {
+  output_format = "i3bar"
+  colors = true
+  color_good = "#ffffff"
+  color_degraded = "#aaaaaa"
+  color_bad = "#333333"
+}
+time {
+        format = "%d/%m/%Y - %H:%M:%S"
+}
+battery 0 {
+        format = "%status %percentage - %remaining"
+        format_down = "No battery"
+        status_chr = "☡ CHAMP B"
+        status_bat = "⛃"
+        status_unk = "? UNK"
+        status_full = "☻ FULL"
+        status_idle = "☻ IDLE"
+        path = "/sys/class/power_supply/BAT%d/uevent"
+        low_threshold = 10
+}
+volume master {
+        format = "♪ %volume"
+        format_muted = "⚹ %volume"
+        device = "default"
+        mixer = "Master"
+        mixer_idx = 0
+}
+read_file brightness {
+    path = "/home/rayou/light_value"
+    format = "☀ %content%"
+}
+wireless wlo1 {
+        format_up = "%bitrate ☇ %essid"
+        format_down = "⚐"
+}
+
+ethernet enp0s20f0u3 {
+        format_up = "⚏ %speed"
+        format_down = "⚐"
+}
+
+order += "wireless wlo1"
+order += "ethernet enp0s20f0u3"
+order += "battery 0"
+order += "read_file brightness"
+order += "volume master"
+order += "time"

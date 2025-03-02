@@ -1,0 +1,37 @@
+
+# Spawn the example_tool process
+spawn sudo openconnect vpn.grenet.fr
+
+log_user 0
+set timeout -1
+
+# Partie sudo
+set usr $env(USER)
+send_user "Sudo password of $usr plz: "
+stty -echo
+expect_user -re "(.*)\n"
+set password $expect_out(1,string)
+stty echo
+send_user "\n"
+
+expect "password for rayou: "
+send "$password\r"
+
+# Partie openconnect
+expect "GROUP: "
+send "Etudiants de Grenoble INP\r"
+
+expect "Username:"
+send "bartolor\r"
+
+send_user "Mot de passe UGA (bartolor): "
+stty -echo
+expect_user -re "(.*)\n"
+set password $expect_out(1,string)
+stty echo
+send_user "\n"
+
+expect "Password:"
+send "$password\r"
+
+interact

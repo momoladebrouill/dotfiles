@@ -1,26 +1,9 @@
 "" ensimag vim config file version 1.0.3
-"" this file is intended for vim 8
-"" before using it you will need to
-"" - install plug with :
-""      curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-"" (see https://github.com/junegunn/vim-plug)
-"" - install the languageserver server for each language you indend to use :
-""    * pyls for python (see https://github.com/palantir/python-language-server)
-""    * rls for rust (see https://github.com/rust-lang-nursery/rls)
-""    * clangd for c
-"" - install some font with powerline symbols for eye candy and icons
-"" (see https://github.com/powerline/fonts)
-"" - change plugin directory to ~/.vim/plugged
-"" (uncomment line 22 and comment line 21)
-
-"" after that copy this file as your ~/.vimrc and execute :PlugInstall
 
 set nocompatible
 filetype on
 
 filetype plugin indent on
-
-
 set encoding=utf-8
 
 " for the status bar
@@ -65,5 +48,6 @@ let g:monotone_secondary_hue_offset = 200 " Offset secondary colors by 200 degre
 let g:monotone_emphasize_comments = 1 " Emphasize comments
 let g:mergetool_layout ='rm'
 let g:mergetool_prefer_revision = 'local'
+
 colorscheme monotone
 set belloff=all

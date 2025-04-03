@@ -3,7 +3,7 @@
 function bcd(){
     cd $1
     if [[ -e $PWD/shell.nix ]]; then
-        nix-shell
+        nix-shell --run zsh
     fi
 }
 alias cd="bcd"

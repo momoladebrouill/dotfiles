@@ -42,13 +42,14 @@ export NIX_SHELL_PRESERVE_PROMPT=0
 prompteur() {
     if  [[ -n "$IN_NIX_SHELL" ]]; then
         nested=$(ps | wc -l | awk '{print $1 - 7}');
-        export PROMPT=$'\n%F{magenta}NixOS %n @ %~\n$ %f'
+        export PROMPT=$'\n%F{magenta}nix-shell (${nested}) %n @ %~\n$ %f'
         #export PROMPT=$'\n%F{magenta}nix-shell genre(%{${nested}%}) %n @ %~\n$ %f';
     else
         export PROMPT=$'\n%F{yellow}NixOS %n @ %~\n$ %f'
     fi
 }
 
+setopt prompt_subst
 add-zsh-hook precmd prompteur
 
 

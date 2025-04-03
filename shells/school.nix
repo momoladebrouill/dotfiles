@@ -7,7 +7,6 @@ pkgs.mkShell {
     expect
 
 	zathura
-    R
     git
 
     # lol
@@ -15,10 +14,9 @@ pkgs.mkShell {
     cowsay
     lolcat
   ];
-    vpn = "expect -f /home/rayou/a/vpn";
     shellHook = ''
-    fortune -s | cowsay | lolcat
-	echo "$vpn pour le vpn"
+    alias vpn="expect -f /home/rayou/a/vpn"
+    fortune -s | cowsay -r | lolcat
     eval $(ssh-agent -s)
     ssh-add ~/.ssh/gitlab_ensimag
     '';

@@ -13,9 +13,9 @@ set -o vi
 alias feh="feh -d. --draw-tinted"
 alias rm="rm -i"
 
-function nix-run() {
-    nix-shell -p $1 --run $1
-}
+#function nix-run() {
+ #   nix-shell -p $1 --run $1
+#}
 export PROMPT_COMMAND='nested=$(ps)'
 export PS1="\r\n\033[0;33mNixOS \u @ \w\r\n$ \033[0;0m"
 

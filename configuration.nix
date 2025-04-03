@@ -26,6 +26,7 @@
         dates = "monthly";
         options = "--delete-older-than 30d";
     };
+    boot.supportedFilesystems = [ "ntfs" ];
 
     nixpkgs.config.allowUnfree = true;
     nix.settings.keep-outputs = true;
@@ -82,8 +83,6 @@
         hardware.bluetooth.powerOnBoot = false; # powers up the default Bluetooth controller on boot
 
 
-# OR
-
 # Enable touchpad support (enabled default in most desktopManager).
         services.libinput.enable = true;
 
@@ -97,15 +96,19 @@
     };
 
     programs.firefox.enable = true;
+    programs.zsh.enable = true;
+    programs.vim.enable = true;
 
 # List packages installed in system profile. To search, run:
 # $ nix search wget
     environment.systemPackages = with pkgs; [
         yazi # file explorer
+        nix-bundle # for nix-run
+        killall # must be available quickly
 
         # to survive
-        kitty
         vim 
+
         # check status
         btop
         i3status
@@ -113,17 +116,21 @@
         # cool i3
         feh
         brightnessctl
+        i3blocks
+        picom
+
+        # cool terminal
+        kitty
         zsh
 
         # music
-        spotify-player
+        spotify
         bluez
         
         # VIM
         (
             (vim_configurable.override {  }).customize{
                 name = "vim";
-                # Install plugins for example for syntax highlighting of nix files
                 vimrcConfig.packages.myplugins = with pkgs.vimPlugins; {
                     start = [ vim-nix vim-lastplace vim-snippets ultisnips vim-mergetool];
                 opt = [];
@@ -133,6 +140,9 @@
     ];
 
     environment.variables = { EDITOR = "vim"; };
+    environment.shellAliases = {
+        nix-shell = "nix-shell --run zsh";
+  };
 
 
 # Some programs need SUID wrappers, can be configured further or are

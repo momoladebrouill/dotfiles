@@ -1,23 +1,30 @@
-# re-run i3-config-wizard(1) to default setup
+# momoladebrouill's sway config
 
-font pango:monospace 12
-
-exec --no-startup-id dex --autostart --environment i3
-
-# Define names for default workspaces for which we configure key bindings later on.
-# We use variables to avoid repeating the names in multiple places.
-set $ws1 "1 Lup"
-set $ws2 "2 Vaz"
-set $ws3 "3 Cou"
-set $ws4 "4 Biz"
-set $ws5 "5 Tip"
-set $ws6 "6 Rasc"
-set $ws7 "7 Efer"
-set $ws8 "8 Pilc"
-set $ws9 "9 Aber"
-set $ws10 "10 Gala"
 set $mod Mod4
-set $refresh_i3status killall -SIGUSR1 i3status
+
+bindsym $mod+Return exec kitty
+bindsym $mod+Tab exec firefox
+bindsym $mod+a kill
+bindsym $mod+Shift+z exec shutdown now
+bindsym $mod+f fullscreen toggle
+bindsym $mod+Shift+e exec swaynag -t warning -m 'Exit sway ? ;(' -B 'Yes, exit sway' 'swaymsg exit'
+bindsym $mod+Shift+r reload
+bindsym twosuperior exec /home/rayou/shscripts/conky.sh
+bindsym $mod+h split h
+bindsym $mod+v split v
+bindsym $mod+s layout stacking
+bindsym $mod+z layout tabbed
+bindsym $mod+e layout toggle split
+bindsym $mod+p focus parent
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+q focus parent
+
+# for better readability 
 set $sound_up pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
 set $sound_down pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
 set $mute pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
@@ -30,16 +37,6 @@ bindsym XF86AudioMute exec --no-startup-id $mute
 bindsym XF86MonBrightnessUp exec --no-startup-id $lum_up
 bindsym XF86MonBrightnessDown exec --no-startup-id $lum_down
 
-smart_gaps yes
-hide_edge_borders smart
-for_window [class="^.*"] border pixel 2
-
-bindsym $mod+Return exec kitty
-bindsym $mod+Tab exec firefox
-bindsym $mod+a kill
-bindsym $mod+Shift+z exec shutdown now
-bindsym $mod+d exec "dmenu_run -l 5 -nf '#FFFFFF' -nb '#222222' -sb '#3F3a37' -sf '#181818' -fn 'monospace-10' -p 'Divitiae Aliis'"
-bindsym $mod+f fullscreen toggle
 
 # change focus
 bindsym $mod+j focus left
@@ -65,26 +62,18 @@ bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
-# split in horizontal/vertical orientation
-bindsym $mod+h split h
-bindsym $mod+v split v
 
-# change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
-bindsym $mod+z layout tabbed
-bindsym $mod+e layout toggle split
-
-# toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
-
-# change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
-
-# focus the parent container
-bindsym $mod+q focus parent
-
-# focus the child container
-#bindsym $mod+d focus child
+# workspaces names
+set $ws1 "1 Lup"
+set $ws2 "2 Vaz"
+set $ws3 "3 Cou"
+set $ws4 "4 Biz"
+set $ws5 "5 Tip"
+set $ws6 "6 Rasc"
+set $ws7 "7 Efer"
+set $ws8 "8 Pilc"
+set $ws9 "9 Aber"
+set $ws10 "10 Gala"
 
 
 # switch to workspace
@@ -104,40 +93,25 @@ bindsym $mod+Shift+ampersand move container to workspace number $ws1
 bindsym $mod+Shift+eacute move container to workspace number $ws2
 bindsym $mod+Shift+quotedbl move container to workspace number $ws3
 bindsym $mod+Shift+apostrophe move container to workspace number $ws4
-bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+parenleft  move container to workspace number $ws5
 bindsym $mod+Shift+minus move container to workspace number $ws6
 bindsym $mod+Shift+egrave move container to workspace number $ws7
 bindsym $mod+Shift+underscore move container to workspace number $ws8
 bindsym $mod+Shift+ccedilla move container to workspace number $ws9
 bindsym $mod+Shift+agrave move container to workspace number $ws10
 
-# reload the configuration file
-bindsym $mod+Shift+c reload
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
-# exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
-# resize window (you can also use the mouse for that)
 mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
-
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
         bindsym j resize shrink width 10 px or 10 ppt
         bindsym k resize grow height 10 px or 10 ppt
         bindsym l resize shrink height 10 px or 10 ppt
         bindsym m resize grow width 10 px or 10 ppt
 
-        # same bindings, but for the arrow keys
         bindsym Left resize shrink width 10 px or 10 ppt
         bindsym Down resize grow height 10 px or 10 ppt
         bindsym Up resize shrink height 10 px or 10 ppt
         bindsym Right resize grow width 10 px or 10 ppt
 
-        # back to normal: Enter or Escape or $mod+r
         bindsym Return mode "default"
         bindsym Escape mode "default"
         bindsym $mod+r mode "default"
@@ -159,41 +133,54 @@ mode "barz" {
 }
 
 bindsym $mod+Shift+b mode "barz"
-set $planqued hide
-bindsym $mod+b bar mode toggle
+
 
 # class                 border  bground text    indicator child_border
-client.focused          #000000 #000000 #FFFFFF #666666   #3F3A37
-client.focused_inactive #000000 #5F676A #FFFFFF #484E50   #222222
-client.unfocused        #000000 #222222 #888888 #292D2E   #322D29
+client.focused          #000000 #000000 #FFFFFF #666666   #5555AA
+client.focused_inactive #000000 #5F676A #FFFFFF #484E50   #5555AA
+client.unfocused        #000000 #222222 #888888 #292D2E   #222288
 client.urgent           #2F343A #484818 #FFFFFF #484818   #484818
 client.placeholder      #000000 #0C0C0C #FFFFFF #000000   #0C0C0C
 
 client.background       #FFFFFF
 
 bar {
-    status_command /home/rayou/.config/i3/barextended.bash
-    mode $planqued
-	hidden_state $planqued
-	modifier $mod
-    separator_symbol " / "
+    mode hide
     colors {
-        background #322D29
+        background #ffffff00
         statusline #A48774
         separator  #796B63
                         # border  background text
         focused_workspace  #322D29 #FCC440 #322D29
-        active_workspace   #322D29 #D9B154 #FFFFFF
+        active_workspace   #322D29 #D9B154 #000000
         inactive_workspace #333333 #BFA05A #322D29
         urgent_workspace   #2F343A #484848 #FFFFFF
         binding_mode       #322D29 #A48774 #322D29
     }
 }
 
+input * {
+    xkb_layout "fr"
+    repeat_rate 60
+    repeat_delay 220
+    xkb_options eurosign:e,caps:swapescape
+}
+
+input type:touchpad {
+    tap enabled
+}
+
+
 for_window [class="SFML*"] floating enable, move position center
-exec xset r rate 220 60
-exec --no-startup-id feh --bg-fill /home/rayou/.background_image.jpg
-exec --no-startup-id xrandr --output DVI-1-0 --auto --right-of HDMI-0 &
-exec picom --config ~/.config/picom/picom.conf
+for_window [app_id=".*"] opacity 0.85, blur enable
+for_window [class="^.*"] border pixel 2
+
+gaps inner 20
+gaps outer 30
+#smart_gaps on
+
+output * bg /home/rayou/.background_image.jpg fill
 workspace 1 output HDMI-0
 workspace 2 output DVI-1-0
+font pango:monospace 12
+exec conky

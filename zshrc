@@ -22,19 +22,31 @@ source ~/shscripts/battery.bash
 source ~/shscripts/wifi.bash
 source ~/shscripts/better-cd.bash
 source ~/shscripts/gray.bash
-
+source ~/shscripts/zathurals.bash
 
 #to have a better navigation
 set -o vi 
 
+#aliases
 alias ls="ls --color=auto"
 alias feh="feh -d. --draw-tinted"
 alias rm="rm -i"
+
 
 # espiaccly used for neofetch or discord
 function nix-run() {
     nix-shell -p $1 --run $1
 } 
+
+function background(){
+    if [[ -e $1 ]]; then 
+        echo J\'ai mit $1 en fond d\'écran
+        fullpath=$(readlink -f $1)
+        swaymsg "output * bg $fullpath fill"
+    else
+        echo MMh t\' es sur frangin \?
+    fi
+}
 
 export PROMPT_SUBST=1
 export NIX_SHELL_PRESERVE_PROMPT=0

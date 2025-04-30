@@ -33,19 +33,20 @@
     nix.settings.keep-derivations = true;
 
     networking.hostName = "Catafalque"; # Define your hostname.
-# Pick only one of the below networking options.
-# networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-        networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+    # Pick only one of the below networking options.
+    # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+    networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
 
-# Set your time zone.
-        time.timeZone = "Europe/Paris";
+    # Set your time zone.
+    time.timeZone = "Europe/Paris";
+    i18n.extraLocaleSettings.LC_TIME="fr_FR.UTF-8";
 
-# Configure network proxy if necessary
-# networking.proxy.default = "http://user:password@proxy:port/";
-# networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+    # Configure network proxy if necessary
+    # networking.proxy.default = "http://user:password@proxy:port/";
+    # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-# Select internationalisation properties.
-# i18n.defaultLocale = "en_US.UTF-8";
+    # Select internationalisation properties.
+    # i18n.defaultLocale = "en_US.UTF-8";
     console = {
         font = "Lat2-Terminus16";
         keyMap = lib.mkForce "fr";
@@ -55,22 +56,29 @@
     system.autoUpgrade.enable = true;
     nix.settings.auto-optimise-store = true;
 
-# Enable the X11 windowing system.
-    services.xserver.enable = true;
-    services.xserver.windowManager.i3.enable = true;
-    services.displayManager.sddm.enable = false;
-    services.displayManager.defaultSession = "none+i3";
+    # Enable the Wayland windowing system
+    services.xserver.enable = false;
 
-# Configure keymap in X11
+    # Enable Sway as the window manager
+    programs.sway.enable = true;
+
+    # Use seatd for input handling (recommended for Sway)
+    security.pam.services.swaylock = {};
+
+    # Disable the X11 display manager
+    services.displayManager.sddm.enable = false;
+    services.displayManager.defaultSession = "sway";
+
+    # Configure keymap for Wayland (applies to Sway)
     services.xserver.xkb.layout = "fr";
     services.xserver.xkb.options = "eurosign:e,caps:escape";
-    services.xserver.autoRepeatDelay = 220;
-    services.xserver.autoRepeatInterval = 60;
 
-# Enable CUPS to print documents.
-# services.printing.enable = true;
 
-# Enable sound.
+
+    # Enable CUPS to print documents.
+    # services.printing.enable = true;
+
+    # Enable sound.
     services.pipewire = {
         enable = false;
         pulse.enable = true;
@@ -80,15 +88,14 @@
         package = pkgs.pulseaudioFull;
     };
     hardware.bluetooth.enable = true; # enables support for Bluetooth
-        hardware.bluetooth.powerOnBoot = false; # powers up the default Bluetooth controller on boot
+    hardware.bluetooth.powerOnBoot = false; # powers up the default Bluetooth controller on boot
+    # Enable touchpad support (enabled default in most desktopManager).
+    services.libinput.enable = true;
 
-
-# Enable touchpad support (enabled default in most desktopManager).
-        services.libinput.enable = true;
-
-# Define a user account. Don't forget to set a password with ‘passwd’.
+    # Define a user account. Don't forget to set a password with ‘passwd’.
     users.users.rayou = {
         isNormalUser = true;
+        shell = pkgs.zsh;
         extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
             packages = with pkgs; [
                 sl
@@ -99,8 +106,8 @@
     programs.zsh.enable = true;
     programs.vim.enable = true;
 
-# List packages installed in system profile. To search, run:
-# $ nix search wget
+
+
     environment.systemPackages = with pkgs; [
         yazi # file explorer
         nix-bundle # for nix-run
@@ -111,13 +118,12 @@
 
         # check status
         btop
-        i3status
+        conky
 
-        # cool i3
-        feh
+        # cool programs (needs window environnement)
+        swayfx
         brightnessctl
-        i3blocks
-        picom
+        zathura
 
         # cool terminal
         kitty
@@ -132,7 +138,7 @@
             (vim_configurable.override {  }).customize{
                 name = "vim";
                 vimrcConfig.packages.myplugins = with pkgs.vimPlugins; {
-                    start = [ vim-nix vim-lastplace vim-snippets ultisnips vim-mergetool];
+                    start = [ vim-nix vim-lastplace vim-snippets ultisnips vim-mergetool vim-pandoc-syntax "lifepillar/vim-colortemplate"];
                 opt = [];
                 };
             }

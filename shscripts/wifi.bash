@@ -16,12 +16,14 @@ function wifi() {
 		wifi_connect $2
 	elif [[ $1 == "lc" ]]; then
 		nmcli dev wifi list
-		wifi_connect $2
+        if $($(nmcli dev wifi list) | grep Darlyrayou); then
+		    wifi_connect $2
+        fi
 	elif [[ $1 == "on" ]]; then
 		nmcli radio wifi on
 	elif [[ $1 == "off" ]]; then
 		nmcli radio wifi off
-	elif [[ $1 == "status" ]]; then
+	elif [[ $1 == "" ]]; then
 		nmcli
 	else
 		echo "Wrong or incomplete command, follow syntax:

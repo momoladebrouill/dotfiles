@@ -1,0 +1,97 @@
+conky.config = {
+    out_to_x = false,
+    out_to_wayland = true,
+    alignment = 'middle_right',
+    update_interval = 1,
+
+    cpu_avg_samples = 2,
+    net_avg_samples = 2,
+
+    override_utf8_locale = true,
+    imlib_cache_size = 0,
+
+--##########
+-- Windows #
+--##########
+    border_width = 1,
+	own_window = true,
+    own_window_class = 'Conky',
+	own_window_type = 'desktop',
+    own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+    own_window_transparent = false,
+    own_window_argb_visual = true,
+    own_window_argb_value = 30,
+    own_window_colour = '1111ee',
+	double_buffer = true,
+	background = true,
+	xinerama_head = 2,
+    stippled_borders = 0,
+
+    border_inner_margin = 30,
+    border_outer_margin = 0,
+
+    minimum_width = 330,
+    minimum_height = 400,
+    maximum_width = 330,
+
+--###########
+-- Graphics #
+--###########
+    draw_shades = false ,
+    draw_outline = false,
+    draw_borders = false,
+    draw_graph_borders = true,
+
+--#######
+-- Text #
+--#######
+    use_xft = true,
+    xftalpha = 0.8,
+    font = 'monospace:size=12',
+
+    uppercase = false,
+
+    default_color = 'fff3eb',
+    show_graph_scale = false,
+    show_graph_range = false,
+
+--#######
+-- Code #
+--#######
+    gap_x = 1,
+    gap_y = 1,
+};
+
+conky.text = [[
+
+$alignc${color 005AFF}Divitiae aliis, carpe quid est ${color}
+$alignc${execi 130000 mtn=$(date +"%A %d %B %Y") && echo ${mtn^}}
+$alignc${color 005AFF}${time %H:%M:%S}$color
+$alignc Power: ${exec ~/shscripts/power.bash} W
+${color blue}$hr${color}
+
+${execp ~/shscripts/conky_net.sh}
+
+${color blue}$hr$color
+
+RAM: $mem/$memmax $alignr$memperc% ${membar 10,100}
+Swap: $swap / $swapfree $alignr$swapperc% ${swapbar 10,100}
+Battery level: $alignr$battery_percent%${battery_bar 10,100}
+Frequency : $freq MHz
+
+${color blue}$hr$color
+
+Host: $nodename
+Edition: ${execi 130000 awk -F= '/DISTRIB_DESCRIPTION=/{printf $2}' /etc/lsb-release}
+Kernel: ${kernel}
+Specs:
+    ${execi 130000 cat /proc/cpuinfo | grep 'model name' | cut -c 14-39 | uniq}
+    ${execi 130000 cat /proc/cpuinfo | grep 'model name' | cut -c 45-51 | uniq} $machine
+
+${color blue}$hr$color
+
+Home: ${fs_used /} used, ${fs_free /} free
+${fs_used_perc /home}% ${fs_bar 10 /}
+Read: $color$diskio_read$alignr Write: $color$diskio_write
+
+]];

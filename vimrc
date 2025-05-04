@@ -20,5 +20,5 @@ set expandtab
 set foldmethod=indent
 set foldlevel=0
 set foldnestmax=1
-set termguicolors
+"set termguicolors
 

@@ -1,3 +1,5 @@
+
+
 conky.config = {
     out_to_x = false,
     out_to_wayland = true,
@@ -16,13 +18,11 @@ conky.config = {
     border_width = 1,
 	own_window = true,
     own_window_class = 'Conky',
-	own_window_type = 'desktop',
+	own_window_type = 'normal',
     own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
-    own_window_transparent = false,
+    own_window_transparent = no,
     own_window_argb_visual = true,
-    own_window_argb_value = 30,
-    own_window_colour = '1111ee',
-	double_buffer = true,
+	double_buffer = false,
 	background = true,
 	xinerama_head = 2,
     stippled_borders = 0,
@@ -46,12 +46,11 @@ conky.config = {
 -- Text #
 --#######
     use_xft = true,
-    xftalpha = 0.8,
+    xftalpha = 1.0,
     font = 'monospace:size=12',
 
     uppercase = false,
 
-    default_color = 'fff3eb',
     show_graph_scale = false,
     show_graph_range = false,
 
@@ -60,6 +59,14 @@ conky.config = {
 --#######
     gap_x = 1,
     gap_y = 1,
+--#########
+-- Colors #
+--#########
+    own_window_argb_value = 40, -- transparency
+    own_window_colour = '0b1154', -- background color
+    default_color = 'white',
+    color1 = '4287f5', -- subtitles
+    color2 = 'black', -- bars
 };
 
 conky.text = [[
@@ -67,31 +74,31 @@ conky.text = [[
 $alignc${color 005AFF}Divitiae aliis, carpe quid est ${color}
 $alignc${execi 130000 mtn=$(date +"%A %d %B %Y") && echo ${mtn^}}
 $alignc${color 005AFF}${time %H:%M:%S}$color
-$alignc Power: ${exec ~/shscripts/power.bash} W
-${color blue}$hr${color}
+${color blue}$hr$color
 
 ${execp ~/shscripts/conky_net.sh}
 
 ${color blue}$hr$color
 
-RAM: $mem/$memmax $alignr$memperc% ${membar 10,100}
-Swap: $swap / $swapfree $alignr$swapperc% ${swapbar 10,100}
-Battery level: $alignr$battery_percent%${battery_bar 10,100}
-Frequency : $freq MHz
+${color1}RAM:$color $mem/$memmax $alignr ${color2}${membar 10,100}$color
+${color1}Swap:$color $swap / $swapfree $alignr ${color2}${swapbar 10,100}$color
+${color1}Battery level:$color $battery_percent% $alignr ${color2}${battery_bar 10,100}$color
+${color1}Frequency:$color $freq MHz
+${color1}Power:$color ${exec ~/shscripts/power.bash} W
 
 ${color blue}$hr$color
 
-Host: $nodename
-Edition: ${execi 130000 awk -F= '/DISTRIB_DESCRIPTION=/{printf $2}' /etc/lsb-release}
-Kernel: ${kernel}
-Specs:
+${color1}Host:$color $nodename
+${color1}Edition:$color ${execi 130000 awk -F= '/DISTRIB_DESCRIPTION=/{printf $2}' /etc/lsb-release}
+${color1}Kernel:$color ${kernel}
+${color1}Specs:$color
     ${execi 130000 cat /proc/cpuinfo | grep 'model name' | cut -c 14-39 | uniq}
     ${execi 130000 cat /proc/cpuinfo | grep 'model name' | cut -c 45-51 | uniq} $machine
 
 ${color blue}$hr$color
 
-Home: ${fs_used /} used, ${fs_free /} free
-${fs_used_perc /home}% ${fs_bar 10 /}
-Read: $color$diskio_read$alignr Write: $color$diskio_write
+${color1}Home:$color ${fs_used /} used, ${fs_free /} free
+${fs_used_perc /home}% ${color2}${fs_bar 10 /}$color
+${color1}Read:$color $diskio_read$alignr ${color1}Write:$color $color$diskio_write
 
 ]];

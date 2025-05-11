@@ -1,26 +1,28 @@
 
 { config, lib, pkgs, ... }:
+let
+  vimCustom = import ./vim-configuration.nix { inherit pkgs; };
+in
 {
     programs.firefox.enable = true;
     programs.zsh.enable = true;
-    programs.vim.enable = true;
 
     environment.systemPackages = with pkgs; [
         yazi # file explorer
         nix-bundle # for nix-run
         killall # must be available quickly
+        vimCustom
 
-        # to survive
-        vim 
 
         # check status
         btop
-        conky
+        conky (conky.override { waylandSupport = true; })
 
         # cool programs (needs window environnement)
         swayfx
         brightnessctl
         zathura
+        wayland-utils
 
         # cool terminal
         kitty
@@ -29,19 +31,7 @@
         # music
         spotify
         bluez
-        (conky.override { waylandSupport = true; })
         
-        # VIM
-        vim
-        (
-            (vim_configurable.override {  }).customize{
-                name = "nvim";
-                vimrcConfig.packages.myplugins = with pkgs.vimPlugins; {
-                    start = [ vim-nix nvim-lastplace nvim-snippets ultisnips vim-mergetool vim-pandoc-syntax cmp-pandoc-nvim];
-                opt = [];
-                };
-            }
-        )
     ];
 
     environment.variables = { EDITOR = "vim"; };

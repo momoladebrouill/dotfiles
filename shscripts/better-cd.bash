@@ -6,4 +6,4 @@ function bcd(){
         nix-shell --run zsh
     fi
 }
-alias cd="bcd"
+alias c="bcd"

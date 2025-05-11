@@ -16,13 +16,13 @@ bindsym $mod+s layout stacking
 bindsym $mod+z layout tabbed
 bindsym $mod+e layout toggle split
 bindsym $mod+p focus parent
+bindsym $mod+c focus child 
 bindsym $mod+Shift+space floating toggle
+bindsym $mod+d exec /home/rayou/shscripts/zsh-wofi.bash
+
 
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
-
-# focus the parent container
-bindsym $mod+q focus parent
 
 # for better readability 
 set $sound_up pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status

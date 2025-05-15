@@ -97,4 +97,4 @@ prompteur() {
 
 setopt prompt_subst
 add-zsh-hook precmd prompteur
-
+eval "$shellHook"

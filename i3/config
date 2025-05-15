@@ -37,7 +37,6 @@ bindsym XF86AudioMute exec --no-startup-id $mute
 bindsym XF86MonBrightnessUp exec --no-startup-id $lum_up
 bindsym XF86MonBrightnessDown exec --no-startup-id $lum_down
 
-
 # change focus
 bindsym $mod+j focus left
 bindsym $mod+k focus down
@@ -62,19 +61,17 @@ bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
-
 # workspaces names
-set $ws1 "1 Lup"
-set $ws2 "2 Vaz"
-set $ws3 "3 Cou"
-set $ws4 "4 Biz"
-set $ws5 "5 Tip"
-set $ws6 "6 Rasc"
-set $ws7 "7 Efer"
-set $ws8 "8 Pilc"
-set $ws9 "9 Aber"
-set $ws10 "10 Gala"
-
+set $ws1 "1:Lup"
+set $ws2 "2:Vaz"
+set $ws3 "3:Cou"
+set $ws4 "4:Biz"
+set $ws5 "5:Tip"
+set $ws6 "6:Rasc"
+set $ws7 "7:Efer"
+set $ws8 "8:Pilc"
+set $ws9 "9:Aber"
+set $ws10 "10:Gala"
 
 # switch to workspace
 bindsym $mod+ampersand workspace number $ws1
@@ -100,41 +97,6 @@ bindsym $mod+Shift+underscore move container to workspace number $ws8
 bindsym $mod+Shift+ccedilla move container to workspace number $ws9
 bindsym $mod+Shift+agrave move container to workspace number $ws10
 
-
-mode "resize" {
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym m resize grow width 10 px or 10 ppt
-
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
-
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-        bindsym $mod+r mode "default"
-}
-
-bindsym $mod+r mode "resize"
-
-mode "barz" {
-    set $planqued show
-
-    bindsym eacute exec --no-startup-id $lum_down
-    bindsym quotedbl exec --no-startup-id $lum_up
-
-    bindsym minus exec --no-startup-id $mute
-    bindsym egrave exec --no-startup-id $sound_down
-    bindsym underscore exec --no-startup-id $sound_up
-    bindsym Escape mode "default"
-    bindsym $mod+Shift+b mode "default"
-}
-
-bindsym $mod+Shift+b mode "barz"
-
-
 # class                 border  bground text    indicator child_border
 client.focused          #000000 #000000 #FFFFFF #666666   #5555AA
 client.focused_inactive #000000 #5F676A #FFFFFF #484E50   #5555AA
@@ -146,16 +108,19 @@ client.background       #FFFFFF
 
 bar {
     mode hide
+    status_command "date"
+    font Liberation Mono Bold
     colors {
         background #ffffff00
-        statusline #A48774
-        separator  #796B63
+# useless in my config
+        statusline #FF0000 
+# useless in my config
+        separator  #796B63 
                         # border  background text
-        focused_workspace  #322D29 #FCC440 #322D29
-        active_workspace   #322D29 #D9B154 #000000
-        inactive_workspace #333333 #BFA05A #322D29
-        urgent_workspace   #2F343A #484848 #FFFFFF
-        binding_mode       #322D29 #A48774 #322D29
+        focused_workspace  #322D2900 #0157FF88 #FFFFFF
+        inactive_workspace #0157FF00 #90CAFF88 #322D29
+        active_workspace   #322D2900 #0277FF88 #FFFFFF
+        urgent_workspace   #2F343A00 #039BFFE5 #FFFFFF
     }
 }
 
@@ -170,19 +135,31 @@ input type:touchpad {
     tap enabled
 }
 
+for_window [app_id=".*"] move position center, opacity 0.85, blur enable, dim_inactive 0.5, corner_radius 10, border pixel 0
 
-for_window [class="SFML*"] floating enable, move position center
-for_window [app_id=".*"] opacity 0.85, blur enable, dim_inactive 0.5, corner_radius 10
-for_window [class="^.*"] border pixel 0
-
-
-for_window [app_id=".*"] layer_effects "conky" blur enable, blur_ignore_transparent enable, blur_brightness 0.75
 gaps inner 20
 gaps outer 30
-#smart_gaps on
+smart_gaps on
 
 output * bg /home/rayou/.background_image.jpg fill
 workspace 1 output HDMI-0
 workspace 2 output DVI-1-0
 font pango:monospace 12
 exec conky
+
+mode "resize :)" {
+    bindsym j resize shrink width 10 px or 10 ppt
+    bindsym k resize grow height 10 px or 10 ppt
+    bindsym l resize shrink height 10 px or 10 ppt
+    bindsym m resize grow width 10 px or 10 ppt
+
+    bindsym Left resize shrink width 10 px or 10 ppt
+    bindsym Down resize grow height 10 px or 10 ppt
+    bindsym Up resize shrink height 10 px or 10 ppt
+    bindsym Right resize grow width 10 px or 10 ppt
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym $mod+r mode "default"
+}
+bindsym $mod+r mode "resize :)"

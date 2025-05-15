@@ -12,6 +12,7 @@ in
         nix-bundle # for nix-run
         killall # must be available quickly
         vimCustom
+        git
 
 
         # check status
@@ -23,6 +24,7 @@ in
         brightnessctl
         zathura
         wayland-utils
+        wl-clipboard
 
         # cool terminal
         kitty

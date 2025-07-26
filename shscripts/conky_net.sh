@@ -9,9 +9,10 @@ for iface in $(ls /sys/class/net | grep -vE "lo$"); do
         up=$(cat /sys/class/net/$iface/statistics/tx_bytes)
         down_speed=$(cat /sys/class/net/$iface/statistics/rx_bytes)
         up_speed=$(cat /sys/class/net/$iface/statistics/tx_bytes)
-        printf "\${color1}$iface \${color}\n"
-        printf "  Down: \${totaldown $iface}\t\${downspeed $iface}\n"
-        printf "  Up: \${totalup $iface}\t\${upspeed $iface}\n"
+        pretty_down=$(numfmt --to=iec --suffix=B --padding=7 $down)
+        printf "\${color1}$iface\$color\n"
+        printf "\$alignr\${downspeed $iface} down\n"
+        printf "\$alignr\${upspeed $iface} up\n"
     fi
 done
 

@@ -104,11 +104,11 @@ client.unfocused        #000000 #222222 #888888 #292D2E   #222288
 client.urgent           #2F343A #484818 #FFFFFF #484818   #484818
 client.placeholder      #000000 #0C0C0C #FFFFFF #000000   #0C0C0C
 
-client.background       #FFFFFF
+#client.background       #FFFFFF
 
 bar {
     mode hide
-    status_command "date"
+    status_command "swaybar"
     font Liberation Mono Bold
     colors {
         background #ffffff00
@@ -133,13 +133,17 @@ input * {
 
 input type:touchpad {
     tap enabled
+    accel_profile "adaptive"
+    pointer_accel 0.5
 }
 
-for_window [app_id=".*"] move position center, opacity 0.85, blur enable, dim_inactive 0.5, corner_radius 10, border pixel 0
 
-gaps inner 20
+for_window [app_id=".*"] move position center, opacity 0.65, blur enable, blur_noise 0.1, blur_radius 10, dim_inactive 0.5, corner_radius 10, border pixel 0
+for_window [app_id="firefox"] opacity 0.90
+
+gaps inner 100
 gaps outer 30
-smart_gaps on
+smart_gaps inverse_outer
 
 output * bg /home/rayou/.background_image.jpg fill
 workspace 1 output HDMI-0

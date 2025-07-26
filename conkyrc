@@ -3,7 +3,7 @@
 conky.config = {
     out_to_x = false,
     out_to_wayland = true,
-    alignment = 'middle_right',
+    alignment = 'top_right',
     update_interval = 1,
 
     cpu_avg_samples = 2,
@@ -15,24 +15,21 @@ conky.config = {
 --##########
 -- Windows #
 --##########
-    border_width = 1,
+    border_width = 50,
 	own_window = true,
     own_window_class = 'Conky',
 	own_window_type = 'normal',
-    own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+    own_window_hints = 'undecorated,above,sticky,skip_taskbar,skip_pager',
     own_window_transparent = no,
-    own_window_argb_visual = true,
-	double_buffer = false,
-	background = true,
+    own_window_argb_visual = false,
+	double_buffer = true,
+	background = false,
 	xinerama_head = 2,
     stippled_borders = 0,
 
-    border_inner_margin = 30,
+    border_inner_margin = 5,
     border_outer_margin = 0,
 
-    minimum_width = 330,
-    minimum_height = 400,
-    maximum_width = 330,
 
 --###########
 -- Graphics #
@@ -47,7 +44,7 @@ conky.config = {
 --#######
     use_xft = true,
     xftalpha = 1.0,
-    font = 'monospace:size=12',
+    font = 'monospace:size=16:bold',
 
     uppercase = false,
 
@@ -62,43 +59,41 @@ conky.config = {
 --#########
 -- Colors #
 --#########
-    own_window_argb_value = 40, -- transparency
+    own_window_argb_value = 0, -- transparency
     own_window_colour = '0b1154', -- background color
-    default_color = 'white',
-    color1 = '4287f5', -- subtitles
-    color2 = 'black', -- bars
+    default_color = '786950',
+    color1 = '352015', -- subtitles
+    color2 = 'white', -- bars
 };
 
 conky.text = [[
 
-$alignc${color 005AFF}Divitiae aliis, carpe quid est ${color}
-$alignc${execi 130000 mtn=$(date +"%A %d %B %Y") && echo ${mtn^}}
-$alignc${color 005AFF}${time %H:%M:%S}$color
-${color blue}$hr$color
+$alignr${color 5D3D27}${time %H:%M:%S}$color
+$alignr${color 5D3D27}Divitiae aliis, carpe quid est$color
+$alignr${execi 130000 mtn=$(date +"%A %d %B") && echo ${mtn^}}
 
-${execp ~/shscripts/conky_net.sh}
+$alignr${execp ~/shscripts/conky_net.sh}
 
-${color blue}$hr$color
-
-${color1}RAM:$color $mem/$memmax $alignr ${color2}${membar 10,100}$color
-${color1}Swap:$color $swap / $swapfree $alignr ${color2}${swapbar 10,100}$color
-${color1}Battery level:$color $battery_percent% $alignr ${color2}${battery_bar 10,100}$color
-${color1}Frequency:$color $freq MHz
-${color1}Power:$color ${exec ~/shscripts/power.bash} W
-
-${color blue}$hr$color
-
-${color1}Host:$color $nodename
-${color1}Edition:$color ${execi 130000 awk -F= '/DISTRIB_DESCRIPTION=/{printf $2}' /etc/lsb-release}
-${color1}Kernel:$color ${kernel}
-${color1}Specs:$color
-    ${execi 130000 cat /proc/cpuinfo | grep 'model name' | cut -c 14-39 | uniq}
-    ${execi 130000 cat /proc/cpuinfo | grep 'model name' | cut -c 45-51 | uniq} $machine
-
-${color blue}$hr$color
-
-${color1}Home:$color ${fs_used /} used, ${fs_free /} free
-${fs_used_perc /home}% ${color2}${fs_bar 10 /}$color
-${color1}Read:$color $diskio_read$alignr ${color1}Write:$color $color$diskio_write
-
+$alignr$color $battery_percent% 
 ]];
+
+--${color1}RAM:$color $mem/$memmax $alignr ${color2}${membar 10,100}$color
+--${color1}Swap:$color $swap / $swapfree $alignr ${color2}${swapbar 10,100}$color
+--${color1}Frequency:$color $freq MHz
+--${color1}Power:$color ${exec ~/shscripts/power.bash} W
+--
+--${color blue}$hr$color
+--
+--${color1}Host:$color $nodename
+--${color1}Edition:$color ${execi 130000 awk -F= '/DISTRIB_DESCRIPTION=/{printf $2}' /etc/lsb-release}
+--${color1}Kernel:$color ${kernel}
+--${color1}Specs:$color
+--    ${execi 130000 cat /proc/cpuinfo | grep 'model name' | cut -c 14-39 | uniq}
+--    ${execi 130000 cat /proc/cpuinfo | grep 'model name' | cut -c 45-51 | uniq} $machine
+--
+--${color blue}$hr$color
+--
+--${color1}Home:$color ${fs_used /} used, ${fs_free /} free
+--${fs_used_perc /home}% ${color2}${fs_bar 10 /}$color
+--${color1}Read:$color $diskio_read$alignr ${color1}Write:$color $color$diskio_write
+

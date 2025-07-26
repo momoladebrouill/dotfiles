@@ -21,4 +21,6 @@ set foldmethod=indent
 set foldlevel=0
 set foldnestmax=1
 "set termguicolors
-
+color gdb
+color gdb
+color gdb

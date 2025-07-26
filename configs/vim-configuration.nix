@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 pkgs.vim_configurable.customize {
-  name = "vim";
+   name = "vim";
   vimrcConfig = {
     packages.myVimPackages = with pkgs.vimPlugins; {
       start = [
@@ -11,11 +11,9 @@ pkgs.vim_configurable.customize {
         vim-mergetool
         vim-pandoc-syntax
         vim-wayland-clipboard
-        YouCompleteMe
       ];
       opt = [];
     };
-  customRC = builtins.readFile /etc/nixos/vimrc;
     
   };
 }

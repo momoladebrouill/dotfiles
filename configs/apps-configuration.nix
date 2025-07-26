@@ -11,9 +11,9 @@ in
         yazi # file explorer
         nix-bundle # for nix-run
         killall # must be available quickly
-        vimCustom
+        vim_configurable
         git
-
+        greetd.tuigreet
 
         # check status
         btop
@@ -25,6 +25,7 @@ in
         zathura
         wayland-utils
         wl-clipboard
+        wofi
 
         # cool terminal
         kitty
@@ -34,6 +35,10 @@ in
         spotify
         bluez
         
+    ];
+    fonts.packages = with pkgs; [
+      cascadia-code
+      fira-code
     ];
 
     environment.variables = { EDITOR = "vim"; };

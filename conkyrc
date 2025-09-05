@@ -4,6 +4,8 @@ conky.config = {
     out_to_x = false,
     out_to_wayland = true,
     alignment = 'top_right',
+    double_buffer = true,   -- Prevents flickering
+    no_buffers = false,     -- Keeps buffering for stability
     update_interval = 1,
 
     cpu_avg_samples = 2,
@@ -75,6 +77,7 @@ $alignr${execi 130000 mtn=$(date +"%A %d %B") && echo ${mtn^}}
 $alignr${execp ~/shscripts/conky_net.sh}
 
 $alignr$color $battery_percent% 
+$alignr${execp ~/shscripts/conky_volume.sh}
 ]];
 
 --${color1}RAM:$color $mem/$memmax $alignr ${color2}${membar 10,100}$color

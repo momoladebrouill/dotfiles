@@ -24,7 +24,16 @@
         enable = false;
         pulse.enable = true;
     };
-    hardware.pulseaudio = {
+    services.greetd = {
+      enable = true;
+      settings = {
+        default_session = {
+          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd sway";
+          user = "greeter";
+        };
+      };
+    };
+    services.pulseaudio = {
         enable = true;
         package = pkgs.pulseaudioFull;
     };

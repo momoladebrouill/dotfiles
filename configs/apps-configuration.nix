@@ -26,6 +26,7 @@ in
         wayland-utils
         wl-clipboard
         wofi
+        neovim
 
         # cool terminal
         kitty
@@ -34,6 +35,13 @@ in
         # music
         spotify
         bluez
+        bluetui
+
+        # friends
+        discord
+
+        # launcher
+        ulauncher
         
     ];
     fonts.packages = with pkgs; [

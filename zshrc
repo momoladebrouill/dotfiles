@@ -23,6 +23,7 @@ source ~/shscripts/wifi.bash
 source ~/shscripts/better-cd.bash
 source ~/shscripts/gray.bash
 source ~/shscripts/zathurals.bash
+source ~/shscripts/current_shell.bash
 
 #to have a better navigation
 set -o vi 

@@ -1,0 +1,5 @@
+#!/usr/bin/env nix-shell
+#! nix-shell -i bash 
+#! nix-shell -p bash expect openconnect
+
+expect -f /home/rayou/a/vpn

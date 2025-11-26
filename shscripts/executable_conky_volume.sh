@@ -1,0 +1,8 @@
+SINK=$(pactl list short sinks | grep RUNNING | sed -e 's,^\([0-9][0-9]*\)[^0-9].*,\1,' | head -n 1 )
+
+PERCEN=$(pactl list sinks | grep '^[[:space:]]Volume:' | head -n $(( $SINK + 1 )) | tail -n 1 | sed -e 's,.* \([0-9][0-9]*\)%.*,\1,' )
+
+NAME=$(pactl list sinks | grep '^[[:space:]]Description:' | head -n $(( $SINK + 1 )) | tail -n 1 | sed -s 's/.*Description: //g')
+
+echo "\$alignr $NAME $PERCEN%"
+ 

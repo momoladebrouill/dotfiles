@@ -37,6 +37,7 @@ let tuisPackages = with pkgs; [
 	yazi # file explorer
 	tldr
 	greetd.tuigreet
+	cope # pretty printing
 ]; in
 
 let basicPackages = with pkgs; [

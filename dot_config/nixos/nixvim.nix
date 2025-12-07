@@ -48,12 +48,29 @@ nvim = source.legacyPackages.x86_64-linux.makeNixvim {
     enable = true;
     autoLoad = true;
   };
-  extraConfigVim = ''
-      set number
+  extraConfigVim = "
       set tabstop=2
       set shiftwidth=2
 			xnoremap <silent> <C-,> :w !wl-copy<CR><CR>
-    '';
+			noremap <C-h> :Trouble diagnostics <CR>
+    ";
+	extraConfigLua = ''
+vim.keymap.set('n', '<leader>td', function()
+  vim.cmd('Trouble diagnostics')
+  vim.defer_fn(function()
+    local trouble = require("trouble")
+    trouble.focus()
+  end, 50)
+end, { desc = "Open Trouble diagnostic and focus" })
+vim.keymap.set('n', '<leader>ts', function()
+  vim.cmd('Trouble symbols')
+  vim.defer_fn(function()
+    local trouble = require("trouble")
+    trouble.focus()
+  end, 50)
+end, { desc = "Open Trouble diagnostic and focus" })
+
+	'';
   plugins.cmp = {
   	enable = true;
 	autoEnableSources = true;

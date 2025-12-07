@@ -29,12 +29,6 @@ source ~/shscripts/current_shell.bash
 set -o vi 
 
 #aliases
-alias ls="ls --color=auto"
-alias feh="feh -d. --draw-tinted"
-alias rm="rm -i"
-alias ns="nix-shell"
-alias nsc="nix-shellify"
-alias vim=nvim
 
 
 # specialy used for neofetch or discord
